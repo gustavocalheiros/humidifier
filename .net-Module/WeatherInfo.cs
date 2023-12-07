@@ -2,6 +2,18 @@
 
 using Azure;
 using Azure.Data.Tables;
+using Microsoft.EntityFrameworkCore;
+
+public class WeatherContext : DbContext
+{
+    public DbSet<WeatherInfo> WeatherInfos { get; set; }
+
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Data Source=..\\Weather_Stats.db");
+    }
+}
 
 public class WeatherInfo : ITableEntity
 {
