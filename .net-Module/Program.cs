@@ -2,6 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WeatherStats.Extensions;
 
 namespace WeatherStats;
 
@@ -11,8 +12,7 @@ internal class Program
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder();
 
-        builder.Services.AddTransient<WeatherStats>(); //transient?
-        builder.Services.AddSingleton<IKeyVault, KeyVault.KeyVault>();
+        ServiceCollectionExtensions.SetupDI(builder);
 
         using IHost host = builder.Build();
 
@@ -21,7 +21,7 @@ internal class Program
 
         var weatherStats = provider.GetRequiredService<WeatherStats>();
 
-        weatherStats.SetupTable();
+        //weatherStats.SetupTable();
 
         host.Run();
     }

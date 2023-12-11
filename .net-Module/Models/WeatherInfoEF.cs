@@ -1,24 +1,7 @@
 ﻿namespace WeatherStats.Models;
 
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-public class WeatherContext : DbContext
-{
-    public DbSet<WeatherInfoEF> WeatherInfos { get; set; }
-
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("Data Source=..\\Weather_Stats.db");
-    }
-
-    protected override void OnModelCreating(ModelBuilder modelbuilder)
-    {
-        modelbuilder.Entity<WeatherInfoEF>().Property(p => p.Id).ValueGeneratedOnAdd();
-    }
-}
 
 [Table("weather_stats")]
 public class WeatherInfoEF

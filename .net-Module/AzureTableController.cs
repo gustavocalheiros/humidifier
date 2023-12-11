@@ -1,15 +1,13 @@
-﻿using System.Timers;
-using Azure;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Azure;
+using Azure.Data.Tables;
+using System.Timers;
 using WeatherStats.KeyVault;
 using WeatherStats.Models;
 using Timer = System.Timers.Timer;
 
 namespace WeatherStats;
 
-using Azure.Data.Tables;
-
-public class WeatherStats
+public class AzureTableController
 {
     private const string EndPoint = "https://weatherstats.table.core.windows.net/stats";
     private const string AccountName = "weatherstats";
@@ -18,18 +16,20 @@ public class WeatherStats
     private const string PartitionKey = "Temperature_Humidity";
     private const int TimerInterval = 2000;
 
+    private readonly LocalTableController _localTableController;
     private readonly IKeyVault _keyVault;
 
     private readonly TableServiceClient _tableServiceClient;
     private readonly Timer _updateSocketStatusTimer;
 
 
-    public WeatherStats(IKeyVault keyVault)
+    public AzureTableController(LocalTableController localTableController, IKeyVault keyVault)
     {
+        _localTableController = localTableController;
         _keyVault = keyVault;
         this._tableServiceClient = this.SetupTable().Result;
 
-        UpdateTables();
+        UpdateTable();
 
         _updateSocketStatusTimer = new Timer(TimerInterval);
 
@@ -52,43 +52,30 @@ public class WeatherStats
     {
         var accountKey = await _keyVault.GetSecretValue(AzureSecret);
 
-         return new TableServiceClient(
-            new Uri(EndPoint),
-            new TableSharedKeyCredential(AccountName, accountKey.Value.Value));
+        return new TableServiceClient(
+           new Uri(EndPoint),
+           new TableSharedKeyCredential(AccountName, accountKey.Value.Value));
     }
 
-    public void UpdateTables()
+    public void UpdateTable()
     {
         using var context = new WeatherInfoContext();
 
         var tableClient = _tableServiceClient.GetTableClient(TableName);
         tableClient.CreateIfNotExists();
 
-        foreach (var weatherInfoEf in this.ReadLocalData(context))
+        foreach (var weatherInfoEf in _localTableController.ReadData(context))
         {
             var response = this.InsertData(tableClient, weatherInfoEf);
             Console.WriteLine("data inserted? " + response);
             if (response.IsError == false)
             {
-                var r = this.DeleteLocalData(context, weatherInfoEf);
+                var r = _localTableController.DeleteData(context, weatherInfoEf);
                 Console.WriteLine("value deleted? " + r);
             }
         }
 
         context.SaveChanges();
-    }
-
-    public void InsertLocalData()
-    {
-        using var context = new WeatherInfoContext();
-        var infoEF = new WeatherInfoEF(DateTime.Now, 98, 99);
-        context.WeatherInfos.Add(infoEF);
-        context.SaveChanges();
-    }
-
-    public List<WeatherInfoEF> ReadLocalData(WeatherInfoContext context)
-    {
-        return context.WeatherInfos.ToList();
     }
 
     public Response InsertData(TableClient tableClient, WeatherInfoEF infoEF)
@@ -102,10 +89,5 @@ public class WeatherStats
         };
 
         return tableClient.UpsertEntity(info);
-    }
-
-    public EntityEntry<WeatherInfoEF> DeleteLocalData(WeatherInfoContext weatherContext, WeatherInfoEF infoEF)
-    {
-        return weatherContext.Remove(infoEF);
     }
 }
