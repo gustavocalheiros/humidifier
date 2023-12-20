@@ -96,7 +96,7 @@ public class WeatherStats
         var info = new WeatherInfo
         {
             PartitionKey = PartitionKey,
-            RowKey = Guid.NewGuid().ToString("N"),
+            RowKey = (infoEF.Time.Ticks / TimeSpan.TicksPerSecond).ToString(),
             Temperature = infoEF.Temperature,
             Humidity = infoEF.Humidity
         };
