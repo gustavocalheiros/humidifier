@@ -8,6 +8,11 @@ namespace WeatherStats;
 
 internal class Program
 {
+    //docker no python
+    //nuke na build
+    //UTs
+    //CI
+    //https://maker.ifttt.com/trigger/turn_off_socket/with/key/pxVxph9VI0X6ASnjpo3El
     private static void Main()
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder();
