@@ -8,7 +8,7 @@
 	  <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
 	  <SignAssembly>True</SignAssembly>
 	  <DelaySign>False</DelaySign>
-	  <AssemblyOriginatorKeyFile>C:\repos\humidifier\.net-Module\strongname.snk</AssemblyOriginatorKeyFile>
+	  <AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\strongname.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
