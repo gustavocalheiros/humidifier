@@ -7,7 +7,7 @@ namespace WeatherStats.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void SetupDI(HostApplicationBuilder builder, IServiceProvider provider = null)
+    public static void SetupDI(HostApplicationBuilder builder, IServiceProvider? provider = null)
     {
         builder.Services.AddSingleton<WeatherInfoContext>();
         builder.Services.AddSingleton<WeatherStats>();

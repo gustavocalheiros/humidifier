@@ -93,13 +93,10 @@ public class WeatherStats
 
     public Response InsertData(TableClient tableClient, WeatherInfoEF infoEF)
     {
-        var info = new WeatherInfo
-        {
-            PartitionKey = PartitionKey,
-            RowKey = (infoEF.Time.Ticks / TimeSpan.TicksPerSecond).ToString(),
-            Temperature = infoEF.Temperature,
-            Humidity = infoEF.Humidity
-        };
+        var info = new WeatherInfo(PartitionKey,
+            (infoEF.Time.Ticks / TimeSpan.TicksPerSecond).ToString(),
+            infoEF.Temperature,
+            infoEF.Humidity);
 
         return tableClient.UpsertEntity(info);
     }
