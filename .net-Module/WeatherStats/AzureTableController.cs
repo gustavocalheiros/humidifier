@@ -23,7 +23,7 @@ public class AzureTableController
     private readonly Timer _updateSocketStatusTimer;
 
 
-    public AzureTableController(LocalTableController localTableController, IKeyVault keyVault)
+    internal AzureTableController(LocalTableController localTableController, IKeyVault keyVault)
     {
         _localTableController = localTableController;
         _keyVault = keyVault;

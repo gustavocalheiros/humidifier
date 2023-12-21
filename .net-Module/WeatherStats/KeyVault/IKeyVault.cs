@@ -2,7 +2,7 @@
 
 using Azure.Security.KeyVault.Secrets;
 
-public interface IKeyVault
+internal interface IKeyVault
 {
     Task<Azure.Response<KeyVaultSecret>> GetSecretValue(string secret);
 }

@@ -24,7 +24,7 @@ public class WeatherStats
     private readonly Timer _updateSocketStatusTimer;
 
 
-    public WeatherStats(IKeyVault keyVault)
+    internal WeatherStats(IKeyVault keyVault)
     {
         _keyVault = keyVault;
         this._tableServiceClient = this.SetupTable().Result;
