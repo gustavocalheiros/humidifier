@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
+	  <SignAssembly>True</SignAssembly>
+	  <DelaySign>False</DelaySign>
+	  <AssemblyOriginatorKeyFile>C:\repos\humidifier\.net-Module\strongname.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
