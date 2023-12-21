@@ -1,7 +1,13 @@
 .net-Module/WeatherStats.sln.DotSettings.user
+.net-Module/.vs
+.net-Module/WeatherStats/bin/
 .net-Module/WeatherStats/bin/
 .net-Module/WeatherStats/obj/
 .net-Module/WeatherStats/.vs/
 .net-Module/WeatherStats_Tests/bin/
 .net-Module/WeatherStats_Tests/obj/
 .net-Module/WeatherStats_Tests/.vs/
+.net-Module/_build/bin/
+.net-Module/_build/obj/
+.net-Module/_build/.vs/
+.nuke/
