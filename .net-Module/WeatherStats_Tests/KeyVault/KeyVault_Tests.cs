@@ -2,7 +2,7 @@ namespace WeatherStats_Tests.KeyVault
 {
     public class Tests
     {
-        private WeatherStats.KeyVault.IKeyVault keyVault;
+        private WeatherStats.KeyVault.IKeyVault _keyVault = null!;
             
         [SetUp]
         public void Setup()
@@ -12,8 +12,8 @@ namespace WeatherStats_Tests.KeyVault
         [Test]
         public void Test1()
         {
-            //keyVault = new WeatherStats.KeyVault.KeyVault();
-            //Assert.That(keyVault, Is.Not.Null);
+            _keyVault = new WeatherStats.KeyVault.KeyVault();
+            Assert.That(_keyVault, Is.Not.Null);
         }
     }
 }
