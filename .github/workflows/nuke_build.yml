@@ -20,5 +20,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    - name: Setup nuke
+      run: dotnet tool install Nuke.GlobalTool --global
     - name: Build and Run UTs
       run: nuke UnitTests
