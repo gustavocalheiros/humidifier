@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\.net-Module\WeatherStats.csproj" />
+    <ProjectReference Include="..\WeatherStats\WeatherStats.csproj" />
   </ItemGroup>
 
 </Project>
