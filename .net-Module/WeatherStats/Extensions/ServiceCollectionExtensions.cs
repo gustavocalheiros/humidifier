@@ -10,8 +10,8 @@ public static class ServiceCollectionExtensions
     public static void SetupDI(HostApplicationBuilder builder, IServiceProvider? provider = null)
     {
         builder.Services.AddSingleton<WeatherInfoContext>();
-        builder.Services.AddSingleton<WeatherStats>();
         builder.Services.AddSingleton<IKeyVault, KeyVault.KeyVault>();
+        builder.Services.AddSingleton<WeatherStats>();
 
         builder.Services.AddTransient<LocalTableController>();
         //builder.Services.AddTransient(service => new LocalTableController(service.GetRequiredService<WeatherStats>()));

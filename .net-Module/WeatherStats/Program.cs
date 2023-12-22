@@ -1,6 +1,4 @@
-﻿using WeatherStats.KeyVault;
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeatherStats.Extensions;
 
@@ -11,7 +9,6 @@ internal class Program
     //docker no python
     //nuke na build
     //UTs
-    //CI
     //https://maker.ifttt.com/trigger/turn_off_socket/with/key/pxVxph9VI0X6ASnjpo3El
     private static void Main()
     {
