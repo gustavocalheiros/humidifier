@@ -7,13 +7,14 @@ using Timer = System.Timers.Timer;
 
 namespace WeatherStats;
 
-public class AzureTableController
+public class AzureTableController : IDisposable
 {
     private const string EndPoint = "https://weatherstats.table.core.windows.net/stats";
     private const string AccountName = "weatherstats";
     private const string AzureSecret = "azure-table-secret";
     private const string TableName = "stats";
     private const string PartitionKey = "Temperature_Humidity";
+    private const string SocketKey = "pxVxph9VI0X6ASnjpo3El";
     private const int TimerInterval = 2000;
 
     private readonly LocalTableController _localTableController;
@@ -34,7 +35,7 @@ public class AzureTableController
         _updateSocketStatusTimer = new Timer(TimerInterval);
 
         _updateSocketStatusTimer.Elapsed += UpdateSocketStatus;
-        _updateSocketStatusTimer.AutoReset = false;
+        _updateSocketStatusTimer.AutoReset = true;
         _updateSocketStatusTimer.Enabled = true;
         _updateSocketStatusTimer.Start();
 
@@ -46,7 +47,10 @@ public class AzureTableController
 
         var entities = tableClient.Query<WeatherInfo>();
         var weatherInfos = entities.ToList();
+
+        SmartSocket.TurnOff(SocketKey);
     }
+    
 
     public async Task<TableServiceClient> SetupTable()
     {
@@ -86,5 +90,11 @@ public class AzureTableController
             infoEF.Humidity);
 
         return tableClient.UpsertEntity(info);
+    }
+
+    public void Dispose()
+    {
+        _updateSocketStatusTimer.Elapsed -= this.UpdateSocketStatus;
+        _updateSocketStatusTimer.Dispose();
     }
 }
