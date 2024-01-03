@@ -1,5 +1,7 @@
 .net-Module/WeatherStats.sln.DotSettings.user
 .net-Module/.vs
+.net-Module/bin/
+.net-Module/obj/
 .net-Module/WeatherStats/bin/
 .net-Module/WeatherStats/bin/
 .net-Module/WeatherStats/obj/
