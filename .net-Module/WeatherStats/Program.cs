@@ -21,10 +21,6 @@ internal class Program
         using IServiceScope serviceScope = host.Services.CreateScope();
         IServiceProvider provider = serviceScope.ServiceProvider;
 
-        var weatherStats = provider.GetRequiredService<WeatherStats>();
-
-        //weatherStats.SetupTable();
-
         host.Run();
     }
 }

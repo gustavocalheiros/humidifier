@@ -13,13 +13,13 @@ public class WeatherInfoContext : DbContext
         optionsBuilder.UseSqlite("Data Source=..\\Weather_Stats.db");
     }
 
-    protected override void OnModelCreating(ModelBuilder modelbuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Id auto-increment
-        modelbuilder.Entity<WeatherInfoEF>().Property(p => p.Id).ValueGeneratedOnAdd();
+        modelBuilder.Entity<WeatherInfoEF>().Property(p => p.Id).ValueGeneratedOnAdd();
 
         // seconds to DateTime
-        modelbuilder.Entity<WeatherInfoEF>().Property(p => p.Time).HasConversion(
+        modelBuilder.Entity<WeatherInfoEF>().Property(p => p.Time).HasConversion(
             v => v.Second,
             v => UnitTimeZero.AddSeconds(v));
     }

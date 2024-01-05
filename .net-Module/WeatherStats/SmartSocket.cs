@@ -1,6 +1,6 @@
 ﻿namespace WeatherStats;
 
-public class SmartSocket
+public static class SmartSocket
 {
     private static readonly HttpClient Client = new();
     private const string WebhookUrlPlaceholder = "https://maker.ifttt.com/trigger/{0}/with/key/{1}";

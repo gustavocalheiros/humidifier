@@ -14,7 +14,6 @@ public static class ServiceCollectionExtensions
         builder.Services.AddSingleton<WeatherStats>();
 
         builder.Services.AddTransient<LocalTableController>();
-        //builder.Services.AddTransient(service => new LocalTableController(service.GetRequiredService<WeatherStats>()));
         builder.Services.AddTransient<AzureTableController>();
     }
 }

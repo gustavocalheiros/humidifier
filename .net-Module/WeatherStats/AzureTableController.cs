@@ -48,7 +48,16 @@ public class AzureTableController : IDisposable
         var entities = tableClient.Query<WeatherInfo>();
         var weatherInfos = entities.ToList();
 
-        SmartSocket.TurnOff(SocketKey);
+        WeatherInfo? weatherInfo = weatherInfos.OrderBy(x => x.Timestamp).FirstOrDefault();
+
+        if(weatherInfo?.Humidity > 35) 
+        {
+            SmartSocket.TurnOn(SocketKey);
+        }
+        else
+        {
+            SmartSocket.TurnOff(SocketKey);
+        }
     }
     
 
@@ -72,7 +81,7 @@ public class AzureTableController : IDisposable
         {
             var response = this.InsertData(tableClient, weatherInfoEf);
             Console.WriteLine("data inserted? " + response);
-            if (response.IsError == false)
+            if (!response.IsError)
             {
                 var r = _localTableController.DeleteData(context, weatherInfoEf);
                 Console.WriteLine("value deleted? " + r);
