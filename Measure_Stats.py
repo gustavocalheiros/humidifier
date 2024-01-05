@@ -35,9 +35,9 @@ def get_stats():
     # you can pass DHT22 use_pulseio=False if you wouldn't like to use pulseio.
     # This may be necessary on a Linux single board computer like the Raspberry Pi,
     # but it will not work in CircuitPython.
-    dhtDevice = adafruit_dht.DHT22(gpio_port, use_pulseio=False)    
-    temperature = dhtDevice.temperature
-    humidity = dhtDevice.humidity    
+    dht_device = adafruit_dht.DHT22(gpio_port, use_pulseio=False)    
+    temperature = dht_device.temperature
+    humidity = dht_device.humidity    
  
     return temperature, humidity
     
@@ -47,7 +47,7 @@ def get_stats():
     raise error
     
   except Exception as error:
-    dhtDevice.exit()
+    dht_device.exit()
     raise error
     
     

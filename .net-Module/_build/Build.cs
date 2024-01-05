@@ -1,3 +1,5 @@
+namespace Build;
+
 using Nuke.Common;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tools.DotNet;

@@ -4,7 +4,7 @@ using WeatherStats.Extensions;
 
 namespace WeatherStats;
 
-internal class Program
+internal static class Program
 {
     //docker no python
     //nuke na build
