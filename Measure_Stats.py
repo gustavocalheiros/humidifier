@@ -9,6 +9,8 @@ import sys
 logging.basicConfig(filename='python.log', encoding='utf-8', level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
+sonar.python.version=3.12
+
 read_interval_seconds = 10
 gpio_port = board.D19
 db_name = "weather_stats.db"
