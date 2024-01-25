@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WeatherStats" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="EndPoint" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://weatherstats.table.core.windows.net/stats</Value>
+    </Setting>
+    <Setting Name="AccountName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">weatherstats</Value>
+    </Setting>
+    <Setting Name="AzureSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)">azure-table-secret</Value>
+    </Setting>
+    <Setting Name="TableName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">stats</Value>
+    </Setting>
+    <Setting Name="PartitionKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Temperature_Humidity</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

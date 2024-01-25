@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Configuration;
 using WeatherStats.KeyVault;
 using WeatherStats.Models;
 
@@ -11,6 +12,7 @@ public static class ServiceCollectionExtensions
     {
         builder.Services.AddSingleton<WeatherInfoContext>();
         builder.Services.AddSingleton<IKeyVault, KeyVault.KeyVault>();
+        //builder.Services.Add<ApplicationSettingsBase, Settings.Default>();
         builder.Services.AddSingleton<WeatherStats>();
 
         builder.Services.AddTransient<LocalTableController>();
