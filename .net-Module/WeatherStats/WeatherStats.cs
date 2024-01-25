@@ -20,8 +20,11 @@ public class WeatherStats
     private readonly TableServiceClient _tableServiceClient;
     private readonly Timer _updateSocketStatusTimer;
 
+    public WeatherStats(IKeyVault keyVault) : 
+        this(keyVault, Settings.Default)
+    {   }
 
-    internal WeatherStats(IKeyVault keyVault, Settings settings)
+    private WeatherStats(IKeyVault keyVault, Settings settings)
     {
         _keyVault = keyVault;
         _settings = settings;
