@@ -9,25 +9,25 @@ namespace WeatherStats;
 
 public class AzureTableController : IDisposable
 {
-    private const string EndPoint = "https://weatherstats.table.core.windows.net/stats";
-    private const string AccountName = "weatherstats";
-    private const string AzureSecret = "azure-table-secret";
-    private const string TableName = "stats";
-    private const string PartitionKey = "Temperature_Humidity";
-    private const string SocketKey = "pxVxph9VI0X6ASnjpo3El";
     private const int TimerInterval = 2000;
 
     private readonly LocalTableController _localTableController;
     private readonly IKeyVault _keyVault;
+    private readonly Settings _settings;
 
     private readonly TableServiceClient _tableServiceClient;
     private readonly Timer _updateSocketStatusTimer;
 
+    public AzureTableController(LocalTableController localTableController, IKeyVault keyVault) :
+        this(localTableController, keyVault, Settings.Default)
+    { }
 
-    internal AzureTableController(LocalTableController localTableController, IKeyVault keyVault)
+    private AzureTableController(LocalTableController localTableController, IKeyVault keyVault, Settings settings)
     {
         _localTableController = localTableController;
         _keyVault = keyVault;
+        _settings = settings;
+
         this._tableServiceClient = this.SetupTable().Result;
 
         UpdateTable();
@@ -43,7 +43,7 @@ public class AzureTableController : IDisposable
 
     private void UpdateSocketStatus(object? sender, ElapsedEventArgs e)
     {
-        var tableClient = _tableServiceClient.GetTableClient(TableName);
+        var tableClient = _tableServiceClient.GetTableClient(_settings.TableName);
 
         var entities = tableClient.Query<WeatherInfo>();
         var weatherInfos = entities.ToList();
@@ -52,29 +52,29 @@ public class AzureTableController : IDisposable
 
         if(weatherInfo?.Humidity > 35) 
         {
-            SmartSocket.TurnOn(SocketKey);
+            SmartSocket.TurnOn(_settings.SocketKey);
         }
         else
         {
-            SmartSocket.TurnOff(SocketKey);
+            SmartSocket.TurnOff(_settings.SocketKey);
         }
     }
     
 
     public async Task<TableServiceClient> SetupTable()
     {
-        var accountKey = await _keyVault.GetSecretValue(AzureSecret);
+        var accountKey = await _keyVault.GetSecretValue(_settings.AzureSecret);
 
         return new TableServiceClient(
-           new Uri(EndPoint),
-           new TableSharedKeyCredential(AccountName, accountKey.Value.Value));
+           new Uri(_settings.EndPoint),
+           new TableSharedKeyCredential(_settings.AccountName, accountKey.Value.Value));
     }
 
     public void UpdateTable()
     {
         using var context = new WeatherInfoContext();
 
-        var tableClient = _tableServiceClient.GetTableClient(TableName);
+        var tableClient = _tableServiceClient.GetTableClient(_settings.TableName);
         tableClient.CreateIfNotExists();
 
         foreach (var weatherInfoEf in _localTableController.ReadData(context))
@@ -93,7 +93,7 @@ public class AzureTableController : IDisposable
 
     public Response InsertData(TableClient tableClient, WeatherInfoEF infoEF)
     {
-        var info = new WeatherInfo(PartitionKey, 
+        var info = new WeatherInfo(_settings.PartitionKey, 
             (infoEF.Time.Ticks / TimeSpan.TicksPerSecond).ToString(), 
             infoEF.Temperature, 
             infoEF.Humidity);

@@ -17,5 +17,11 @@
     <Setting Name="PartitionKey" Type="System.String" Scope="User">
       <Value Profile="(Default)">Temperature_Humidity</Value>
     </Setting>
+    <Setting Name="AzureKeyVaultUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://weather-stats-keyvault.vault.azure.net</Value>
+    </Setting>
+    <Setting Name="SocketKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pxVxph9VI0X6ASnjpo3El</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

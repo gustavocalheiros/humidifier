@@ -82,5 +82,29 @@ namespace WeatherStats {
                 this["PartitionKey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://weather-stats-keyvault.vault.azure.net")]
+        public string AzureKeyVaultUrl {
+            get {
+                return ((string)(this["AzureKeyVaultUrl"]));
+            }
+            set {
+                this["AzureKeyVaultUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pxVxph9VI0X6ASnjpo3El")]
+        public string SocketKey {
+            get {
+                return ((string)(this["SocketKey"]));
+            }
+            set {
+                this["SocketKey"] = value;
+            }
+        }
     }
 }
