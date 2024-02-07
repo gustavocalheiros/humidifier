@@ -1,5 +1,6 @@
 ![Build and Tests](https://github.com/gustavocalheiros/humidifier/actions/workflows/nuke_build.yml/badge.svg) 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gustavocalheiros_humidifier&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gustavocalheiros_humidifier)
+[![codecov](https://codecov.io/gh/gustavocalheiros/humidifier/graph/badge.svg?token=FXZGCOAV2N)](https://codecov.io/gh/gustavocalheiros/humidifier)
 
 This is a personal project that turns automatically on a Humidifier once the Humidity sensor gets below 35%
 
