@@ -55,6 +55,6 @@ class Build : NukeBuild
             DotNetTest(x => x
                 .SetProjectFile(TestProject)
                 .SetConfiguration(Configuration)
-                .SetLoggers("trx;LogFileName=../../../TestResults.xml"));
+                .SetLoggers("trx;LogFileName=TestResults.xml"));
         });
 }
